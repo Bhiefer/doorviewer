@@ -93,8 +93,7 @@ echo '<div id="wrapper" style="background-image: url(\''.$filepath.'\')"></div>'
     
     // Refresh or reload page.
     function refresh() {
-        //var picked = \Nette\Utils\FileSystem::read('pickedImage.txt');
-        //if (getCookie('filepath') != $('.image').attr('src')) {
+        //var picked = nacistZeSouboru('pickedImage.txt');
         //if (getCookie('filepath') != picked) { 
             window .location.reload();
         //}
