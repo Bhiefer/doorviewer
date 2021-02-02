@@ -1,0 +1,5 @@
+{
+    "require": {
+        "nette/finder": "^2.5"
+    }
+}
