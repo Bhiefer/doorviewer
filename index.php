@@ -74,35 +74,38 @@
 
 <style>
     a {
-        color: #121212;
-        font-family: "Arial";
-        font-weight: 400;
+        color: #1976D2;
+        font-family: "Roboto", sans-serif;
+        font-weight: 500;
         text-decoration: none;
     }
     
     .flex {
         display: flex;
         flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
     }
     .imageWrapper {
-        word-wrap: break-word;
-        flex: 30%;
-        margin-bottom: 50px;
+        width: 360px;
+        margin: 20px;
+        text-align: center;
     }
     
     .imageWrapper .image {
+        display: block;
         margin-bottom: 10px;
+        border-radius: 4px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     }
+    
     .imageWrapper .text {
-        width: 360px;
-        font-size: 42px;
-        text-align: center;
+        font-size: 18px;
     }
 
     .imageWrapper.directory .text {
-        text-align: center;
         text-transform: uppercase;
-        font-size: 50px;
+        font-size: 24px;
     }
 </style>
 </body>
