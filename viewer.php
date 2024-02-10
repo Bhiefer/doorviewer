@@ -1,38 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Evans - Prohlídka dveří</title>
+    <meta charset="UTF-8">
+    <title>Evans - Prohlídka dveří</title>
+    <!-- Načtení knihovny jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
-        /*html {*/
-        /*    background: url('files/Porta/Deskové/Porta BALANCE/PortaBALANCE_B.0_DabSkandynawski_Portaperfect3D_PortaSYSTEM kopia.jpg') no-repeat center center fixed;*/
-        /*    background-size: contain;*/
-        /*}*/
-        /*.image {
-            max-width: 100%;
-            max-height: 100%;
-            bottom: 0;
-            left: 0;
-            margin: auto;
-            overflow: auto;
-            position: fixed;
-            right: 0;
-            top: 0;
-            -o-object-fit: contain;
-            object-fit: contain;
-        }
-        
-        .fullscreen {
-          position: fixed;
-          top: 0;
-          left: 0;
-          bottom: 0;
-          right: 0;
-          overflow: auto;
-          background: lime; 
-        } */
-          
         html, body {
             background-color: black;
             height: 100%;
@@ -45,58 +18,56 @@
             background-position:center;
             background-repeat: no-repeat;
         }
-
     </style>
     
 </head>
 <body>
     
 <?php
-include 'vendor/autoload.php';
+// Absolutní cesta k souboru "pickedImage.txt"
+$absoluteFilePath = 'http://10.0.0.37/pickedImage.txt';
 
-$filepath = \Nette\Utils\FileSystem::read('pickedImage.txt');
-setCookie('filepath', $filepath);
+// Uložení obsahu souboru do cookies pro pozdější použití při kontrole změny
+$lastFileContent = file_get_contents($absoluteFilePath);
+setcookie('lastFileContent', $lastFileContent);
 
-echo '<div id="wrapper" style="background-image: url(\''.$filepath.'\')"></div>'
-
+// Výpis divu s obrázkem, kde je pozadí nastaveno na obsah souboru pickedImage.txt
+echo '<div id="wrapper" style="background-image: url(\''.$lastFileContent.'\')"></div>';
 ?>
    
-
 <script>
-    function setCookie(name,value,days) {
-        var expires = "";
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days*24*60*60*1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-    }
-
-    function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for(var i = 0; i <ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
-    window.setInterval('refresh()', 1000);
+    // Po načtení dokumentu spustí kontrolu změny souboru
+    $(document).ready(function(){
+        checkFileChange();
+    });
     
-    // Refresh or reload page.
-    function refresh() {
-        //var picked = nacistZeSouboru('pickedImage.txt');
-        //if (getCookie('filepath') != picked) { 
-            window .location.reload();
-        //}
+    // Funkce pro kontrolu změny souboru
+    function checkFileChange() {
+        // Získání obsahu posledně načteného obrázku uloženého v cookies
+        var lastFileContent = getCookie('lastFileContent');
+        
+        // AJAX požadavek na soubor "pickedImage.txt"
+        $.ajax({
+            url: '<?php echo $absoluteFilePath; ?>',
+            type: 'GET',
+            success: function(data) {
+                // Porovnání aktuálního obsahu souboru s poslední uloženým obsahem
+                if (data !== lastFileContent) {
+                    // Pokud se obsah souboru změnil, obnoví se stránka
+                    window.location.reload();
+                }
+            }
+        });
+        
+        // Nastavení opakované kontroly změny souboru každou sekundu
+        setTimeout(checkFileChange, 1000);
+    }
+    
+    // Funkce pro získání hodnoty cookie
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length === 2) return decodeURIComponent(parts.pop().split(";").shift());
     }
 </script>
 
