@@ -6,7 +6,27 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit43db1ff6b8ccaa1ea13c53917270350c
 {
+    public static $prefixLengthsPsr4 = array (
+        'I' => 
+        array (
+            'Icewind\\Streams\\' => 16,
+            'Icewind\\SMB\\' => 12,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Icewind\\Streams\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/icewind/streams/src',
+        ),
+        'Icewind\\SMB\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/icewind/smb/src',
+        ),
+    );
+
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\DeprecatedException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\DirectoryNotFoundException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
@@ -56,6 +76,8 @@ class ComposerStaticInit43db1ff6b8ccaa1ea13c53917270350c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit43db1ff6b8ccaa1ea13c53917270350c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit43db1ff6b8ccaa1ea13c53917270350c::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit43db1ff6b8ccaa1ea13c53917270350c::$classMap;
 
         }, null, ClassLoader::class);

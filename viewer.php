@@ -32,7 +32,7 @@ $lastFileContent = file_get_contents($absoluteFilePath);
 setcookie('lastFileContent', $lastFileContent);
 
 // Výpis divu s obrázkem, kde je pozadí nastaveno na obsah souboru pickedImage.txt
-echo '<div id="wrapper" style="background-image: url(\''.$lastFileContent.'\')"></div>';
+echo '<div id="wrapper" style="background-image: url(\''.$lastFileContent.'?v='.time().'\')"></div>';
 ?>
    
 <script>
@@ -46,14 +46,19 @@ echo '<div id="wrapper" style="background-image: url(\''.$lastFileContent.'\')">
         // Získání obsahu posledně načteného obrázku uloženého v cookies
         var lastFileContent = getCookie('lastFileContent');
         
-        // AJAX požadavek na soubor "pickedImage.txt"
+        // AJAX požadavek na soubor "pickedImage.txt" s náhodným parametrem pro zabránění cachování
         $.ajax({
-            url: '<?php echo $absoluteFilePath; ?>',
+            url: '<?php echo $absoluteFilePath; ?>?v=' + Math.random(),
             type: 'GET',
             success: function(data) {
+                // Logování porovnání hodnot
+                console.log('Current File Content:', data);
+                console.log('Last File Content:', lastFileContent);
+                
                 // Porovnání aktuálního obsahu souboru s poslední uloženým obsahem
                 if (data !== lastFileContent) {
                     // Pokud se obsah souboru změnil, obnoví se stránka
+                    console.log('File content changed, reloading page...');
                     window.location.reload();
                 }
             }

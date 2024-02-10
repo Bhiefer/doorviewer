@@ -1,5 +1,6 @@
 {
     "require": {
-        "nette/finder": "^2.5"
+        "nette/finder": "^2.5",
+        "icewind/smb": "^3.6"
     }
 }
