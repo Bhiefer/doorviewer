@@ -37,7 +37,7 @@
 			echo '<div class="imageWrapper directory">';
 			echo '<a href="'.$link.'" class="image"><img width="360" src="'.$previewImage->getPathname().'"></a>';
 			echo '<div class="text">';
-			echo '<a href="'.$link.'">'.$directory->getFilename().'</a><br>';
+			echo '<a href="'.$link.'">'.str_replace('_', ' ', pathinfo($directory->getFilename(), PATHINFO_FILENAME)).'</a><br>';
 			echo '</div>';
 			echo '</div>';
 		}
@@ -47,7 +47,7 @@
 		    echo '<div class="imageWrapper">';
             echo '<a href="javascript:void(0)" class="image" data-filepath="'.$file->getPathname().'"><img width="360" src="'.$file->getPathname().'"></a>';
             echo '<div class="text">';
-			echo '<a href="javascript:void(0)" data-filepath="'.$file->getPathname().'">'.$file->getFilename().'</a>';
+			echo '<a href="javascript:void(0)" data-filepath="'.$file->getPathname().'">'.str_replace('_', ' ', pathinfo($file->getFilename(), PATHINFO_FILENAME)).'</a>';
 			echo '</div>';
 			echo '</div>';
 		}
@@ -63,7 +63,7 @@
 			echo '<div class="imageWrapper directory">';
 			echo '<a href="'.$link.'" class="image"><img width="360" src="'.$previewImage->getPathname().'"></a>';
 			echo '<div class="text">';
-			echo '<a href="'.$link.'">'.$directory->getFilename().'</a><br>';
+			echo '<a href="'.$link.'">'.str_replace('_', ' ', pathinfo($directory->getFilename(), PATHINFO_FILENAME)).'</a><br>';
 			echo '</div>';
 			echo '</div>';
 		}
